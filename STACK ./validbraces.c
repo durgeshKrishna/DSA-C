@@ -2,37 +2,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-int size,i;
-char Exp[100];
-char stack[100];
-int position[100];
-int top = -1;
-bool condition = true;
-int is_empty()
+int size,i,top=-1;
+char str[100],stack[100];
+int post[100];
+bool condn = true;
+bool is_empty()
 {
-    if (top == -1)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-int is_full()
+    return top==-1;
+ }
+bool is_full()
 {
-    if (top == size - 1)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return top==size-1;
 }
 int pop()
 {
-    int n=position[top];
+    int n=post[top];
     stack[top];
     top--;
     return n;
@@ -41,29 +25,31 @@ void push(char data, int pos)
 {
     top++;
     stack[top] = data;
-    position[top] = pos;
+    post[top] = pos;
 }
 int peek() 
     {return stack[top];}
+
+
 void validbraces()
 {
     for (i = 0; i < size; i++)
     {
-        switch (Exp[i])
+        switch (str[i])
         {
         case '(':
-            push(Exp[i], i);
+            push(str[i], i);
             break;
         case '[':
-            push(Exp[i], i);
+            push(str[i], i);
             break;
         case '{':
-            push(Exp[i], i);
+            push(str[i], i);
             break;
         }
         if (!is_empty())
         {
-            switch (Exp[i])
+            switch (str[i])
             {
             case ')':
                 if (peek() == '(')
@@ -72,8 +58,8 @@ void validbraces()
                 }
                 else
                 {
-                    printf("%d ", pop());
-                    condition = false;
+                    printf("\n %d  \n", pop());
+                    condn = false;
                 }
                 break;
             case ']':
@@ -83,8 +69,8 @@ void validbraces()
                 }
                 else
                 {
-                    printf("%d ", pop());
-                    condition = false;
+                    printf(" \n %d  \n", pop());
+                    condn = false;
                 }
                 break;
             case '}':
@@ -94,32 +80,33 @@ void validbraces()
                 }
                 else
                 {
-                    printf("%d ", pop());
-                    condition = false;
+                    printf(" %d ", pop());
+                    condn = false;
                 }
                 break;
             }
         }
         else
         {
-            printf("%d ", i);
-            condition = false;
+            printf("\n INVALID BRACE %d \n", i);
+            condn = false;
         }
     }
     while(!is_empty())
     {
-        condition=false;
-        printf("%d ",pop());
+        condn=false;
+        printf("%d   ",pop());
     }
-    if (condition)
-        printf("True");
+    if (condn)
+        printf(" VALID BRACES \n");
     else
-        printf("False");
+        printf(" INVALID BRACES \n");
 }
 void main()
 {
-    scanf("%s",Exp);
-    size = strlen(Exp);
+     printf("\n ENTER THE STRING \n");
+    scanf("%s",str);
+    size = strlen(str);
     validbraces();
 
 }
