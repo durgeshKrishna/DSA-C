@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define t 11
+#define t 10
 
 struct node
 {
