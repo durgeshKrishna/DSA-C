@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-#define t 11
+#define t 10
 int l[t];
 
 void insert(int x)
